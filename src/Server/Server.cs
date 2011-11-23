@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Server
 {
-  public class Class1
+  public class Server
   {
   }
 }
