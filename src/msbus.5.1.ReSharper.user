@@ -8,18 +8,26 @@
   </SettingsComponent>
   <RecentFiles>
     <RecentFiles>
-      <File id="36D63551-DE07-485E-9403-3DE8EE566C0B/f:Program.cs" caret="0" fromTop="0" />
       <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/d:Properties/f:AssemblyInfo.cs" caret="537" fromTop="12" />
       <File id="36D63551-DE07-485E-9403-3DE8EE566C0B/d:Properties/f:AssemblyInfo.cs" caret="535" fromTop="12" />
-      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Class1.cs" caret="149" fromTop="11" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:packages.config" caret="0" fromTop="0" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:SchedulerDelegate.cs" caret="387" fromTop="21" />
+      <File id="36D63551-DE07-485E-9403-3DE8EE566C0B/f:Program.cs" caret="0" fromTop="0" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Server.cs" caret="561" fromTop="23" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Service.cs" caret="257" fromTop="14" />
     </RecentFiles>
     <RecentEdits>
-      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Class1.cs" caret="149" fromTop="11" />
       <File id="36D63551-DE07-485E-9403-3DE8EE566C0B/f:Program.cs" caret="0" fromTop="0" />
       <File id="36D63551-DE07-485E-9403-3DE8EE566C0B/d:Properties/f:AssemblyInfo.cs" caret="1421" fromTop="35" />
       <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/d:Properties/f:AssemblyInfo.cs" caret="1423" fromTop="35" />
       <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/d:Properties/f:AssemblyInfo.cs" caret="537" fromTop="12" />
       <File id="36D63551-DE07-485E-9403-3DE8EE566C0B/d:Properties/f:AssemblyInfo.cs" caret="535" fromTop="12" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:SchedulerDelegate.cs" caret="276" fromTop="12" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:SchedulerDelegate.cs" caret="370" fromTop="17" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Server.cs" caret="370" fromTop="15" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Server.cs" caret="547" fromTop="20" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Server.cs" caret="564" fromTop="23" />
+      <File id="F378A82F-52A3-45B4-BDE8-DB4D71A7B0AB/f:Service.cs" caret="243" fromTop="12" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -33,4 +41,31 @@
     </NUnitInstallDir>
     <UseAddins>Never</UseAddins>
   </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="public" priority="0" />
+      <Item value="void" priority="0" />
+      <Item value="Gate" priority="0" />
+      <Item value="Kayak" priority="0" />
+      <Item value="KayakGate`0" priority="0" />
+      <Item value="var" priority="0" />
+      <Item value="new" priority="1" />
+      <Item value="IPAddress`0" priority="0" />
+      <Item value="SchedulerDelegate`0" priority="0" />
+      <Item value="ep" priority="0" />
+      <Item value="builder" priority="0" />
+      <Item value="ctor" priority="0" />
+      <Item value="Get" priority="0" />
+      <Item value="return" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Net.IPAddress">
+      <Item value="Any" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Gate.Kayak.KayakGate">
+      <Item value="Start`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Gate.IAppBuilder">
+      <Item value="RescheduleCallbacks`0" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
 </Configuration>
