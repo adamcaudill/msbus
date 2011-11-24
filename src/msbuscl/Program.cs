@@ -2,16 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using MSBus.Server;
 
 namespace MSBus.Console
 {
   class Program
   {
+    private static RestServer _server;
+    
     static void Main(string[] args)
     {
-      var server = new RestServer();
-      server.Start();
+      _server = new RestServer();
+      _StartServer();
+      System.Console.WriteLine("Press any key to stop server...");
+      System.Console.ReadKey();
+      System.Console.WriteLine("Stopping Server...");
+      _server.Stop();
+      System.Console.WriteLine("Server Stopped - Press any key to exit...");
+      System.Console.ReadKey();
+    }
+
+    private static void _StartServer()
+    {
+      var th = new Thread(_server.Start) {Name = "_RestServer"};
+      th.Start();
     }
   }
 }
