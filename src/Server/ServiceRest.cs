@@ -17,7 +17,7 @@ namespace MSBus.Server
     private Response _GetVersion()
     {
       var res = new {Version = "0.0"};
-      return new JsonResponse(res, new DefaultJsonSerializer());
+      return new JsonResponse(res, new JsonNetSerializer());
     }
   }
 }

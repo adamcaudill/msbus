@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JsonNetSerializer.cs" />
     <Compile Include="SchedulerDelegate.cs" />
     <Compile Include="RestServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
