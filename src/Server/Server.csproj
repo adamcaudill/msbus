@@ -59,6 +59,7 @@
     <Compile Include="RestServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
+    <Compile Include="ServiceRest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
