@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Box.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Responses\ActionFailedResponse.cs" />
     <Compile Include="Responses\BoxCreatedResponse.cs" />
     <Compile Include="DataStore.cs" />
     <Compile Include="JsonNetSerializer.cs" />

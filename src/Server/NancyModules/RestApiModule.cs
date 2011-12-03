@@ -54,7 +54,7 @@ namespace MSBus.Server.NancyModules
     {
       //todo: validate the box name to make sure it's valid
       if (DataStore.Boxes.ContainsKey(box))
-        return HttpStatusCode.Conflict;
+        return new ActionFailedResponse("Box already exists", HttpStatusCode.Conflict);
 
       DataStore.Boxes.Add(box, new Box());
       return new BoxCreatedResponse(Request.Url.ToUri().ToString());
