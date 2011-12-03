@@ -22,6 +22,9 @@ namespace MSBus.Server.NancyModules
       //delete a box
       Delete["/boxes/{box}"] = x => { return _DeleteBox(x["box"]); };
 
+      //list messages in a box
+      Get["/boxes/{box}"] = x => { return _GetMessagesInBox(x["box"]); };
+
       //create a new message
       Put["/boxes/{box}/{message}"] = x =>
                                         {
@@ -67,6 +70,17 @@ namespace MSBus.Server.NancyModules
 
       DataStore.Boxes.Remove(boxName);
       return new SimplifiedJsonResponse(new {Result = "Box Deleted"});
+    }
+
+    private Response _GetMessagesInBox(string boxName)
+    {
+      if (!DataStore.Boxes.ContainsKey(boxName))
+        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+
+      var urlBase = Request.Url.ToUri() + "/";
+      var box = DataStore.Boxes[boxName];
+      var messages = box.Messages.Keys.ToDictionary(x => x, x => urlBase + x);
+      return new SimplifiedJsonResponse(messages);
     }
 
     private Response _CreateMessage(string boxName, string id, Message msg)
