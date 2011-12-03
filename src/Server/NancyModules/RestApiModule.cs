@@ -45,7 +45,9 @@ namespace MSBus.Server.NancyModules
 
     private Response _GetBoxList()
     {
-      throw new NotImplementedException();
+      var urlBase = Request.Url.ToUri() + "/";
+      var boxes = DataStore.Boxes.Keys.ToDictionary(x => x, x => urlBase + x);
+      return new SimplifiedJsonResponse(boxes);
     }
 
     private Response _CreateBox(string box)
