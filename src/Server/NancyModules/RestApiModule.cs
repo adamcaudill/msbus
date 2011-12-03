@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MSBus.Server.Responses;
 using Nancy;
 using Nancy.ModelBinding;
@@ -7,9 +8,7 @@ using Nancy.Responses;
 namespace MSBus.Server.NancyModules
 {
   public class RestApiModule : NancyModule
-  {
-    private DataStore _dataStore = new DataStore();
-    
+  {    
     public RestApiModule() : base("/api1")
     {
       //version number request
@@ -52,10 +51,10 @@ namespace MSBus.Server.NancyModules
     private Response _CreateBox(string box)
     {
       //todo: validate the box name to make sure it's valid
-      if (_dataStore.Boxes.ContainsKey(box))
+      if (DataStore.Boxes.ContainsKey(box))
         return HttpStatusCode.Conflict;
 
-      _dataStore.Boxes.Add(box, new Box());
+      DataStore.Boxes.Add(box, new Box());
       return new BoxCreatedResponse(Request.Url.ToUri().ToString());
     }
 

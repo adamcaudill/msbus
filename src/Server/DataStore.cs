@@ -5,14 +5,14 @@ using System.Text;
 
 namespace MSBus.Server
 {
-  internal class DataStore
+  internal static class DataStore
   {
     //todo: update this to use RavenDb as a backing store, instead of just using local fields
-    public DataStore()
+    static DataStore()
     {
       Boxes = new Dictionary<string, Box>();
     }
 
-    public Dictionary<string, Box> Boxes { get; private set; }
+    public static Dictionary<string, Box> Boxes { get; private set; }
   }
 }
