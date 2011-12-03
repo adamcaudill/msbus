@@ -49,37 +49,37 @@ namespace MSBus.Server.NancyModules
       return new SimplifiedJsonResponse(boxes);
     }
 
-    private Response _CreateBox(string box)
+    private Response _CreateBox(string boxName)
     {
       //todo: validate the box name to make sure it's valid
-      if (DataStore.Boxes.ContainsKey(box))
+      if (DataStore.Boxes.ContainsKey(boxName))
         return new ActionFailedResponse("Box already exists", HttpStatusCode.Conflict);
 
-      DataStore.Boxes.Add(box, new Box());
+      DataStore.Boxes.Add(boxName, new Box());
       return new BoxCreatedResponse(Request.Url.ToUri().ToString());
     }
 
-    private Response _DeleteBox(string box)
+    private Response _DeleteBox(string boxName)
     {
       //todo: find out why Nancy sends it's own body instead of ours
-      if (!DataStore.Boxes.ContainsKey(box))
+      if (!DataStore.Boxes.ContainsKey(boxName))
         return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
 
-      DataStore.Boxes.Remove(box);
+      DataStore.Boxes.Remove(boxName);
       return new SimplifiedJsonResponse(new {Result = "Box Deleted"});
     }
 
-    private Response _CreateMessage(string box, string id, Message req)
+    private Response _CreateMessage(string boxName, string id, Message req)
     {
       throw new NotImplementedException();
     }
 
-    private Response _DeleteMessage(string box, string id)
+    private Response _DeleteMessage(string boxName, string id)
     {
       throw new NotImplementedException();
     }
 
-    private Response _GetMessage(string box, string id)
+    private Response _GetMessage(string boxName, string id)
     {
       throw new NotImplementedException();
     }
