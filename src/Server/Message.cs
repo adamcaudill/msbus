@@ -8,6 +8,11 @@ namespace MSBus.Server
 {
   internal class Message
   {
+    public Message()
+    {
+      //do nothing
+    }
+    
     public Message(RequestStream requestStream)
     {
       Body = Encoding.UTF8.GetString(requestStream.ReadToEnd());
