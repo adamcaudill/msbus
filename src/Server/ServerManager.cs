@@ -12,7 +12,7 @@ namespace MSBus.Server
 {
   public class ServerManager
   {
-    private Dictionary<string, object> _context = new Dictionary<string, object>();
+    private readonly Dictionary<string, object> _context = new Dictionary<string, object>();
     
     public void Start()
     {

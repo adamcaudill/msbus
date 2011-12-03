@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MSBus.Server
 {
-  public class Message
+  internal class Message
   {
   }
 }
