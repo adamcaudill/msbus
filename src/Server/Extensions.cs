@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -29,6 +30,35 @@ namespace MSBus.Server
       Uri.TryCreate(maybeUrl, UriKind.Absolute, out uri);
 
       return uri;
+    }
+
+    public static byte[] ReadToEnd(this Stream stream)
+    {
+      const int BUFFER = 4096;
+
+      var buffer = new byte[BUFFER];
+      int read;
+      var ret = new byte[0];
+
+      //reset the stream incase other activity has moved things, but only if the stream supports seeking
+      if (stream.CanSeek)
+        stream.Position = 0;
+
+      do
+      {
+        read = stream.Read(buffer, 0, buffer.Length);
+
+        if (read > 0)
+        {
+          var pos = ret.Length;
+          Array.Resize(ref ret, read + ret.Length);
+          Array.Copy(buffer, 0, ret, pos, read);
+
+          buffer = new byte[BUFFER];
+        }
+      } while (read > 0);
+
+      return ret;
     }
   }
 }
