@@ -3,7 +3,6 @@ using System.Linq;
 using MSBus.Server.Responses;
 using Nancy;
 using Nancy.ModelBinding;
-using Nancy.Responses;
 
 namespace MSBus.Server.NancyModules
 {
@@ -62,7 +61,12 @@ namespace MSBus.Server.NancyModules
 
     private Response _DeleteBox(string box)
     {
-      throw new NotImplementedException();
+      //todo: find out why Nancy sends it's own body instead of ours
+      if (!DataStore.Boxes.ContainsKey(box))
+        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+
+      DataStore.Boxes.Remove(box);
+      return new SimplifiedJsonResponse(new {Result = "Box Deleted"});
     }
 
     private Response _CreateMessage(string box, string id, Message req)
