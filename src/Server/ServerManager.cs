@@ -10,7 +10,7 @@ using Nancy.Hosting.Owin;
 
 namespace MSBus.Server
 {
-  public class RestServer
+  public class ServerManager
   {
     private Dictionary<string, object> _context = new Dictionary<string, object>();
     

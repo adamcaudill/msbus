@@ -9,11 +9,11 @@ namespace MSBus.Console
 {
   class Program
   {
-    private static RestServer _server;
+    private static ServerManager _server;
     
     static void Main(string[] args)
     {
-      _server = new RestServer();
+      _server = new ServerManager();
       _StartServer();
       System.Console.WriteLine("Press any key to stop server...");
       System.Console.ReadKey();

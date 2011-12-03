@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses;
 
-namespace MSBus.Server
+namespace MSBus.Server.NancyModules
 {
-  public class ServiceRest : NancyModule
+  public class RestApiModule : NancyModule
   {
-    public ServiceRest() : base("/api1")
+    public RestApiModule() : base("/api1")
     {
       //version number request
       Get["/version"] = _ => { return _GetVersion(); };

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Nancy;
+﻿using Nancy;
 
-namespace MSBus.Server
+namespace MSBus.Server.NancyModules
 {
-  public class Service : NancyModule
+  public class RootModule : NancyModule
   {
-    public Service()
+    public RootModule()
     {
       Get["/"] = _ => { return "<html><head><title>Welcome to MSBus!</title></head><body>Welcome to MSBus, the lightweight message queueing and transport system.</body></html>"; };
       Get["/version"] = _ => { return "MSBus v0.0"; };
