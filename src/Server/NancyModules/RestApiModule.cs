@@ -80,7 +80,15 @@ namespace MSBus.Server.NancyModules
 
     private Response _DeleteMessage(string boxName, string id)
     {
-      throw new NotImplementedException();
+      if (!DataStore.Boxes.ContainsKey(boxName))
+        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+
+      var box = DataStore.Boxes[boxName];
+      if (!box.Messages.ContainsKey(id))
+        return new ActionFailedResponse("Message doesn't exist", HttpStatusCode.NotFound);
+
+      box.Messages.Remove(id);
+      return new SimplifiedJsonResponse(new { Result = "Message Deleted" });
     }
 
     private Response _GetMessage(string boxName, string id)
