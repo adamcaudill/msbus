@@ -16,6 +16,7 @@ namespace MSBus.Server
     
     public void Start()
     {
+      RavenDbManager.Start();
       var ep = new IPEndPoint(IPAddress.Any, 20589);
       KayakGate.Start(new SchedulerDelegate(), ep, AppBuilder.BuildConfiguration(_Configuration), _context);
     }
@@ -29,6 +30,8 @@ namespace MSBus.Server
 
       if (sched != null)
         sched.Stop();
+
+      RavenDbManager.Stop();
     }
 
     private static void _Configuration(IAppBuilder builder)

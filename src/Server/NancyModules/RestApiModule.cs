@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MSBus.Server.Responses;
 using Nancy;
@@ -47,78 +48,174 @@ namespace MSBus.Server.NancyModules
 
     private Response _GetBoxList()
     {
-      var urlBase = Request.Url.ToUri() + "/";
-      var boxes = DataStore.Boxes.Keys.ToDictionary(x => x, x => urlBase + x);
-      return new SimplifiedJsonResponse(boxes);
+      Dictionary<string, string> ret;
+
+      using (var db = RavenDbManager.OpenSession())
+      {
+        var urlBase = Request.Url.ToUri() + "/";
+        var data = db.Query<Box>().ToList();
+        ret = data.ToDictionary(x => x.Name, x => urlBase + x.Name);
+      }
+
+      return new SimplifiedJsonResponse(ret);
     }
 
     private Response _CreateBox(string boxName)
     {
       //todo: validate the box name to make sure it's valid
-      if (DataStore.Boxes.ContainsKey(boxName))
-        return new ActionFailedResponse("Box already exists", HttpStatusCode.Conflict);
+      Response ret;
 
-      DataStore.Boxes.Add(boxName, new Box());
-      return new BoxCreatedResponse(Request.Url.ToUri().ToString());
+      using (var db = RavenDbManager.OpenSession())
+      {
+        if (db.Query<Box>().Where(x => x.Name == boxName).Any())
+        {
+          ret = new ActionFailedResponse("Box already exists", HttpStatusCode.Conflict);
+        }
+        else
+        {
+          var box = new Box(boxName);
+          db.Store(box);
+          db.SaveChanges();
+          ret = new BoxCreatedResponse(Request.Url.ToUri().ToString());
+        }
+      }
+
+      return ret;
     }
 
     private Response _DeleteBox(string boxName)
     {
-      //todo: find out why Nancy sends it's own body instead of ours
-      if (!DataStore.Boxes.ContainsKey(boxName))
-        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+      Response ret;
 
-      DataStore.Boxes.Remove(boxName);
-      return new SimplifiedJsonResponse(new {Result = "Box Deleted"});
+      using (var db = RavenDbManager.OpenSession())
+      {
+        var box = db.Query<Box>().Where(x => x.Name == boxName).FirstOrDefault();
+
+        if (box == null)
+        {
+          ret = new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+        }
+        else
+        {
+          db.Delete(box);
+          db.SaveChanges();
+          ret = new SimplifiedJsonResponse(new { Result = "Box Deleted" });
+        }
+      }
+
+      return ret;
     }
 
     private Response _GetMessagesInBox(string boxName)
     {
-      if (!DataStore.Boxes.ContainsKey(boxName))
-        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+      Response ret;
 
-      var urlBase = Request.Url.ToUri() + "/";
-      var box = DataStore.Boxes[boxName];
-      var messages = box.Messages.Keys.ToDictionary(x => x, x => urlBase + x);
-      return new SimplifiedJsonResponse(messages);
+      using (var db = RavenDbManager.OpenSession())
+      {
+        var box = db.Query<Box>().Where(x => x.Name == boxName).FirstOrDefault();
+
+        if (box == null)
+        {
+          ret = new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+        }
+        else
+        {
+          var urlBase = Request.Url.ToUri() + "/";
+
+          var messages = box.Messages.Keys.ToDictionary(x => x, x => urlBase + x);
+          ret = new SimplifiedJsonResponse(messages);
+        }
+      }
+
+      return ret;
     }
 
     private Response _CreateMessage(string boxName, string id, Message msg)
     {
-      if (!DataStore.Boxes.ContainsKey(boxName))
-        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+      Response ret;
 
-      var box = DataStore.Boxes[boxName];
-      if (box.Messages.ContainsKey(id))
-        return new ActionFailedResponse("Message ID Already Exists", HttpStatusCode.Conflict);
+      using (var db = RavenDbManager.OpenSession())
+      {
+        var box = db.Query<Box>().Where(x => x.Name == boxName).FirstOrDefault();
+        
+        if (box == null)
+        {
+          ret = new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+        }
+        else
+        {
+          if (box.Messages.ContainsKey(id))
+          {
+            ret = new ActionFailedResponse("Message ID Already Exists", HttpStatusCode.Conflict);
+          }
+          else
+          {
+            box.Messages.Add(id, msg);
+            db.SaveChanges();
+            ret = new SimplifiedJsonResponse(new {Result = "Message Added"});
+          }
+        }
+      }
 
-      box.Messages.Add(id, msg);
-      return new SimplifiedJsonResponse(new { Result = "Message Added" });
+      return ret;
     }
 
     private Response _DeleteMessage(string boxName, string id)
     {
-      if (!DataStore.Boxes.ContainsKey(boxName))
-        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+      Response ret;
 
-      var box = DataStore.Boxes[boxName];
-      if (!box.Messages.ContainsKey(id))
-        return new ActionFailedResponse("Message doesn't exist", HttpStatusCode.NotFound);
+      using (var db = RavenDbManager.OpenSession())
+      {
+        var box = db.Query<Box>().Where(x => x.Name == boxName).FirstOrDefault();
 
-      box.Messages.Remove(id);
-      return new SimplifiedJsonResponse(new { Result = "Message Deleted" });
+        if (box == null)
+        {
+          ret = new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+        }
+        else
+        {
+          if (!box.Messages.ContainsKey(id))
+          {
+            ret = new ActionFailedResponse("Message doesn't exist", HttpStatusCode.NotFound);
+          }
+          else
+          {
+            box.Messages.Remove(id);
+            db.SaveChanges();
+            ret = new SimplifiedJsonResponse(new { Result = "Message Deleted" });
+          }
+        }
+      }
+
+      return ret;
     }
 
     private Response _GetMessage(string boxName, string id)
     {
-      if (!DataStore.Boxes.ContainsKey(boxName))
-        return new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+      Response ret;
 
-      var box = DataStore.Boxes[boxName];
-      if (!box.Messages.ContainsKey(id))
-        return new ActionFailedResponse("Message doesn't exist", HttpStatusCode.NotFound);
+      using (var db = RavenDbManager.OpenSession())
+      {
+        var box = db.Query<Box>().Where(x => x.Name == boxName).FirstOrDefault();
 
-      return new SimplifiedJsonResponse(new { box.Messages[id].Body });
+        if (box == null)
+        {
+          ret = new ActionFailedResponse("Box doesn't exist", HttpStatusCode.NotFound);
+        }
+        else
+        {
+          if (!box.Messages.ContainsKey(id))
+          {
+            ret = new ActionFailedResponse("Message doesn't exist", HttpStatusCode.NotFound);
+          }
+          else
+          {
+            ret = new SimplifiedJsonResponse(new { box.Messages[id].Body });
+          }
+        }
+      }
+
+      return ret;
     }
   }
 }

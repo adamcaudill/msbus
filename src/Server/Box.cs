@@ -12,6 +12,12 @@ namespace MSBus.Server
       Messages = new Dictionary<string, Message>();
     }
 
+    public Box(string name) : this()
+    {
+      Name = name;
+    }
+
+    public string Name { get; set; }
     public Dictionary<string, Message> Messages { get; private set; }
   }
 }
