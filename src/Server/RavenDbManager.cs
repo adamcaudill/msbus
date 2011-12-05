@@ -21,7 +21,7 @@ namespace MSBus.Server
 
     public static void Start()
     {
-      _documentStore = new EmbeddableDocumentStore { DataDirectory = _dataPath };
+      _documentStore = new EmbeddableDocumentStore { DataDirectory = _dataPath, UseEmbeddedHttpServer = true };
       _documentStore.Initialize();
     }
 
