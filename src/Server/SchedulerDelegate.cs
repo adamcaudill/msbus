@@ -10,7 +10,8 @@ namespace MSBus.Server
   {
     public void OnException(IScheduler scheduler, Exception e)
     {
-      //TODO: Something
+      //todo: debugging code, get rid of it
+      Console.WriteLine(e.Message);
     }
 
     public void OnStop(IScheduler scheduler)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using MSBus.Server.Responses;
 using Nancy;
@@ -8,9 +9,19 @@ using Nancy.ModelBinding;
 namespace MSBus.Server.NancyModules
 {
   public class RestApiModule : NancyModule
-  {    
+  {
+    private Stopwatch _stopwatch;
+    
     public RestApiModule() : base("/api1")
     {
+      //todo: debug code, get rid of this later
+      Before.AddItemToStartOfPipeline(x =>
+                                        {
+                                          _stopwatch = new Stopwatch();
+                                          _stopwatch.Start();
+                                          return null;
+                                        });
+      
       //version number request
       Get["/version"] = _ => { return _GetVersion(); };
 
@@ -38,6 +49,13 @@ namespace MSBus.Server.NancyModules
 
       //get message details
       Get["/boxes/{box}/{message}"] = x => { return _GetMessage(x["box"], x["message"]); };
+
+      //todo: debug code, get rid of this later
+      After.AddItemToEndOfPipeline(x =>
+                                     {
+                                       _stopwatch.Stop();
+                                       Console.WriteLine("> ({0}ms) {1}: {2}", _stopwatch.ElapsedMilliseconds, Request.Method, Request.Url.Path);
+                                     });
     }
 
     private Response _GetVersion()
