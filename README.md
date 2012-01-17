@@ -35,7 +35,7 @@ What's the status of the project?
 
 In a word: Young.
 
-This is still a fairly new project with a lot of work to be done, but progressing rapidly. From a feature perspective, everything works. Would I use it in production? Not *yet*, but very soon. I expect the first stable release to be ready for prime time by **Jan 1st, 2012**.
+This is still a fairly new project with a lot of work to be done, but progressing rapidly. From a feature perspective, everything works. Would I use it in production? Not *yet*, but very soon. I expect the first stable release to be ready for prime time by **March 1st, 2012**.
 
 Issues & TODOs
 --------------
