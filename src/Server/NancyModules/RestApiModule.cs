@@ -214,7 +214,7 @@ namespace MSBus.Server.NancyModules
 
       using (var db = RavenDbManager.OpenSession())
       {
-        var box = db.Query<Box>().ToList().Where(x => x.Name == boxName).FirstOrDefault();
+        var box = db.Query<Box>().Where(x => x.Name == boxName).FirstOrDefault();
 
         if (box == null)
         {
