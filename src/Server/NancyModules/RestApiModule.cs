@@ -12,7 +12,7 @@ namespace MSBus.Server.NancyModules
   {
     private Stopwatch _stopwatch;
     
-    public RestApiModule() : base("/api1")
+    public RestApiModule() : base("/api/v0.1")
     {
       //todo: debug code, get rid of this later
       Before.AddItemToStartOfPipeline(x =>
