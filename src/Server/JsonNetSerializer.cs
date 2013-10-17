@@ -27,6 +27,14 @@ namespace MSBus.Server
       }
     }
 
+    public IEnumerable<string> Extensions
+    {
+      get
+      {
+        throw new NotImplementedException();
+      }
+    }
+
     private static bool _IsJsonType(string contentType)
     {
       if (string.IsNullOrEmpty(contentType))
