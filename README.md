@@ -22,9 +22,7 @@ Technology
 
 As is the case with many such projects, we rely on a number of other open-source projects. Here's a rough list (sorry if I missed any!):
 
- - [Kayak](https://github.com/kayak/kayak)
  - [NancyFx](http://nancyfx.org/)
- - [Gate](https://github.com/owin/gate)
  - [Json.NET](http://james.newtonking.com/projects/json-net.aspx)
  - [RavenDB](http://www.ravendb.net/)
 
@@ -35,7 +33,7 @@ What's the status of the project?
 
 In a word: Young.
 
-This is still a fairly new project with a lot of work to be done, but progressing rapidly. From a feature perspective, everything works. Would I use it in production? Not *yet*, but very soon. I expect the first stable release to be ready for prime time by **March 1st, 2012**.
+This is still a fairly new project with a lot of work to be done, but progressing rapidly. From a feature perspective, everything works. Would I use it in production? Not *yet*, but very soon. I expect the first stable release to be ready for prime time by **~~March 1st, 2012~~** - when it's ready.
 
 Issues & TODOs
 --------------
