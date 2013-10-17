@@ -8,10 +8,9 @@ using Newtonsoft.Json;
 
 namespace MSBus.Server
 {
+  //based on code from https://github.com/NancyFx/Nancy.Serialization.ServiceStack
   internal class JsonNetSerializer : ISerializer
   {
-    //based on code from https://github.com/NancyFx/Nancy.Serialization.ServiceStack
-    
     public bool CanSerialize(string contentType)
     {
       return _IsJsonType(contentType);
@@ -29,10 +28,7 @@ namespace MSBus.Server
 
     public IEnumerable<string> Extensions
     {
-      get
-      {
-        throw new NotImplementedException();
-      }
+      get { yield return "json"; }
     }
 
     private static bool _IsJsonType(string contentType)
