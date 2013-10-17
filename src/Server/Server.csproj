@@ -104,7 +104,6 @@
     <Compile Include="RavenDbManager.cs" />
     <Compile Include="Responses\ActionFailedResponse.cs" />
     <Compile Include="Responses\BoxCreatedResponse.cs" />
-    <Compile Include="DataStore.cs" />
     <Compile Include="JsonNetSerializer.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Responses\SimplifiedJsonResponse.cs" />
